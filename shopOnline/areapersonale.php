@@ -1,5 +1,6 @@
 <?php
-//avviamo una sessione con la seguente istruzione
+//avviamo una sessione con la seguente istruzione, una sessione ci permette di utilizzare delle informazioni in
+//diversi fogli php. li useremo per tenere in memoria nome utente e password
 session_start();
 
 //connettiamoci al database con le solite istruzioni
@@ -45,12 +46,16 @@ if ($result= $conn ->query($query)) {
 
     while ($dati=$result -> fetch_object()) {
 
+        //Recupera una riga del risultato della query e la converte in un oggetto.
+        //Questo oggetto ha proprietà corrispondenti ai nomi delle colonne della tabella.
+
         if ($dati->idCliente==$user) {
             
             echo "Nome utente corretta! verifico la password"; 
             if ($dati->passw==($passw)) { 
                 $trovato=true;
-
+                //crea delle variabili di sessione user e password!! Attenzione è un metodo non troppo sicuro.. 
+                //ma utile alla comprensione del funzionamento 
                 $_SESSION['User']=$user;
                 
                 $_SESSION['Pass']=$passw;
